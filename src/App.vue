@@ -1,10 +1,13 @@
 <script>
 import { db } from "../src/firebase/app";
 import { collection, getDocs } from "firebase/firestore";
+import HeaderVue from "./components/Header.vue";
 
 export default {
   name: "App",
-  components: {},
+  components: {
+    HeaderVue,
+  },
   data() {
     return {
       db: null,
@@ -20,5 +23,9 @@ export default {
 </script>
 
 <template>
+  <header>
+    <HeaderVue />
+  </header>
+
   <RouterView />
 </template>

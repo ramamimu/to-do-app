@@ -5,7 +5,7 @@ export default {
     return {
       toDoList: [
         {
-          id: 1,
+          id: new Date().getTime(),
           description:
             "akldnak; jiqwhjidu wefh eaiwlka hilha;h ahlf alif rea rfaehfireifla",
           tags: ["tag111", "tag121", "tag32313"],
@@ -29,7 +29,7 @@ export default {
           title: "ini adalah title pertama",
         },
         {
-          id: 2,
+          id: new Date().getTime() + 2,
           description:
             "lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.",
           tags: ["ta1", "tasag121", "ta3"],
@@ -53,7 +53,7 @@ export default {
           title: "ini adalah title kedua",
         },
         {
-          id: 3,
+          id: new Date().getTime() + 6,
           description:
             "lorem ipsum doloit. Quisquam, quod. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.",
           tags: ["tadg1v1qwe1", "tag1as921", "tag3asx2313"],
