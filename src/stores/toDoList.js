@@ -4,7 +4,7 @@ import { defineStore } from "pinia";
 export const useToDoStore = defineStore("todo", () => {
   const todos = ref([
     {
-      id: new Date().getTime() + 2,
+      id: 1666779034529 + 2,
       description:
         "akldnak; wed wed wedwedewdwedewd gwedguoewghfuwebduwe8dwgejh iw fwiuf eihfi wuif weuif h dwedewdewdwedwedeiw hjwe luhfeuwgfuyekw guy jiqwhjasdkjnas wed we dewdwedwedwed wedw d wedwede jh dasjdjkha sjdhas jdh jlaksh dkljashjldkh khidu wefh eaiwlka hilha;h ahlf alif rea rfaehfireifla",
       tags: ["tag111", "tag121", "tag32313"],
@@ -17,7 +17,7 @@ export const useToDoStore = defineStore("todo", () => {
         {
           id: 2,
           task: "task2",
-          completed: false,
+          completed: true,
         },
         {
           id: 3,
@@ -28,7 +28,7 @@ export const useToDoStore = defineStore("todo", () => {
       title: "ini adalah title pertama",
     },
     {
-      id: new Date().getTime() + 5,
+      id: 1666779034529 + 5,
       description:
         "lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.",
       tags: ["ta1", "tasag121", "ta3"],
@@ -36,7 +36,7 @@ export const useToDoStore = defineStore("todo", () => {
         {
           id: 1,
           task: "task1",
-          completed: false,
+          completed: true,
         },
         {
           id: 2,
@@ -52,7 +52,7 @@ export const useToDoStore = defineStore("todo", () => {
       title: "ini adalah title kedua",
     },
     {
-      id: new Date().getTime() + 11,
+      id: 1666779034529 + 11,
       description:
         "lorem ipsum doloit. Quisquam, quod. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.",
       tags: ["tadg1v1qwe1", "tag1as921", "tag3asx2313"],
@@ -70,7 +70,7 @@ export const useToDoStore = defineStore("todo", () => {
         {
           id: 3,
           task: "task3",
-          completed: false,
+          completed: true,
         },
       ],
       title: "ini adalah title ketiga",
@@ -82,5 +82,17 @@ export const useToDoStore = defineStore("todo", () => {
   const addTodo = (todo) => {
     todos.value.push(todo);
   };
-  return { todos, search, addTodo };
+
+  const filterList = () => {
+    const searchTag = search.value;
+    if (searchTag != "") {
+      return todos.value.filter((item) => {
+        return item.tags.includes(searchTag);
+      });
+    } else {
+      return todos.value;
+    }
+  };
+
+  return { todos, search, addTodo, filterList };
 });

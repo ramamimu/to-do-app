@@ -8,7 +8,12 @@ export default {
       ToDoStore,
     };
   },
-  data: () => {},
+  methods: {
+    referLink(id) {
+      const path = `task/${id}`;
+      this.$router.push(path, id);
+    },
+  },
 };
 </script>
 
@@ -16,7 +21,7 @@ export default {
   <main>
     <div class="container mx-auto my-10 flex flex-wrap justify-around gap-5">
       <div
-        v-for="list in ToDoStore.todos"
+        v-for="list in ToDoStore.filterList()"
         :key="list.id"
         class="my-5 max-w-sm rounded-lg border border-gray-200 bg-white p-6 shadow-md"
         bis_skin_checked="1"
@@ -36,7 +41,7 @@ export default {
           }}
         </h6>
         <p
-          class="my-3 h-24 cursor-all-scroll overflow-y-auto font-normal text-gray-700 no-scrollbar"
+          class="my-3 h-24 cursor-default overflow-y-auto font-normal text-gray-700 no-scrollbar"
         >
           {{ list.description }}
         </p>
@@ -50,12 +55,12 @@ export default {
           </p>
         </div>
         <div class="flex items-center justify-between">
-          <a
-            href="#"
-            class="inline-flex items-center rounded-lg bg-blue-700 py-2 px-3 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300"
+          <div
+            class="inline-flex cursor-pointer items-center rounded-lg bg-blue-700 py-2 px-3 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300"
+            @click="referLink(list.id)"
           >
             Read more
-          </a>
+          </div>
           <div class="flex gap-5">
             <div class="cursor-pointer opacity-50 hover:opacity-100">
               <svg
@@ -91,6 +96,9 @@ export default {
             </div>
           </div>
         </div>
+      </div>
+      <div v-if="ToDoStore.filterList() == ''" class="text-xl font-bold">
+        CANNOT FIND LIST TO DO
       </div>
     </div>
   </main>
