@@ -2,17 +2,22 @@
 import { db } from "../src/firebase/app";
 import { collection, getDocs } from "firebase/firestore";
 import HeaderVue from "./components/Header.vue";
+import ToastVue from "./components/Toast.vue";
 import { useToDoStore } from "./stores/toDoList";
+import { useToast } from "./stores/toast";
 
 export default {
   name: "App",
   components: {
     HeaderVue,
+    ToastVue,
   },
   setup() {
     const ToDoStore = useToDoStore();
+    const ToastStore = useToast();
     return {
       ToDoStore,
+      ToastStore,
     };
   },
   data() {
@@ -37,6 +42,10 @@ export default {
   <header>
     <HeaderVue />
   </header>
+
+  <div class="relative">
+    <ToastVue v-if="ToastStore.toast.status" />
+  </div>
 
   <RouterView />
 </template>

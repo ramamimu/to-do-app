@@ -2,19 +2,23 @@ import { ref, watch } from "vue";
 import { defineStore } from "pinia";
 import { db } from "../firebase/app";
 import { doc, setDoc, deleteDoc } from "firebase/firestore";
+import { useToast } from "./toast";
 
 export const useToDoStore = defineStore("todo", () => {
-  const todos = ref([]);
+  const toast = useToast();
 
+  const todos = ref([]);
   const search = ref("");
 
   const addTask = async (todo) => {
     todos.value.push(todo);
     await setDoc(doc(db, "to-do", todo.id), todo)
       .then(() => {
+        toast.showToast("Successfully add task!", true);
         console.log("successfully delete!");
       })
       .catch((error) => {
+        toast.showToast("Failed to add task!", false);
         console.error("Error delete document: ", error);
       });
   };
@@ -25,9 +29,11 @@ export const useToDoStore = defineStore("todo", () => {
     });
     await deleteDoc(doc(db, "to-do", id.toString()))
       .then(() => {
+        toast.showToast("Successfully delete task!", true);
         console.log("Document successfully delete!");
       })
       .catch((error) => {
+        toast.showToast("Failed to delete task!", false);
         console.error("Error delete document: ", error);
       });
   };
@@ -39,9 +45,11 @@ export const useToDoStore = defineStore("todo", () => {
     todos.value[index] = data;
     await setDoc(doc(db, "to-do", todos.value[index].id), data)
       .then(() => {
+        toast.showToast("Successfully edit task!", true);
         console.log("Document successfully written!");
       })
       .catch((error) => {
+        toast.showToast("Failed to edit task!", false);
         console.error("Error writing document: ", error);
       });
   };
