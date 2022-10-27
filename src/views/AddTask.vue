@@ -62,8 +62,8 @@ export default {
     },
     addList(e) {
       e.preventDefault();
-      this.tempFormData.id = new Date().getTime();
-      this.ToDoStore.addTodo(this.tempFormData);
+      this.tempFormData.id = new Date().getTime().toString();
+      this.ToDoStore.addTask(this.tempFormData);
       this.tempFormData = {
         id: null,
         title: "",

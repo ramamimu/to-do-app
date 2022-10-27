@@ -22,9 +22,13 @@ export default {
   },
   async mounted() {
     const querySnapshot = await getDocs(collection(db, "to-do"));
+    let tempLists = [];
     querySnapshot.forEach((doc) => {
       console.log(doc.id, "=>", doc.data());
+      tempLists.push(doc.data());
     });
+    this.ToDoStore.setList(tempLists);
+    console.log(this.ToDoStore.todos);
   },
 };
 </script>

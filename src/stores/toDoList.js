@@ -1,99 +1,49 @@
 import { ref, watch } from "vue";
 import { defineStore } from "pinia";
+import { db } from "../firebase/app";
+import { doc, setDoc, deleteDoc } from "firebase/firestore";
 
 export const useToDoStore = defineStore("todo", () => {
-  const todos = ref([
-    {
-      id: 1666779034529 + 2,
-      description:
-        "akldnak; wed wed wedwedewdwedewd gwedguoewghfuwebduwe8dwgejh iw fwiuf eihfi wuif weuif h dwedewdewdwedwedeiw hjwe luhfeuwgfuyekw guy jiqwhjasdkjnas wed we dewdwedwedwed wedw d wedwede jh dasjdjkha sjdhas jdh jlaksh dkljashjldkh khidu wefh eaiwlka hilha;h ahlf alif rea rfaehfireifla",
-      tags: ["tag111", "tag121", "tag32313"],
-      tasks: [
-        {
-          id: 1,
-          task: "task1",
-          completed: false,
-        },
-        {
-          id: 2,
-          task: "task2",
-          completed: true,
-        },
-        {
-          id: 3,
-          task: "task3",
-          completed: false,
-        },
-      ],
-      title: "ini adalah title pertama",
-    },
-    {
-      id: 1666779034529 + 5,
-      description:
-        "lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.",
-      tags: ["ta1", "tasag121", "ta3"],
-      tasks: [
-        {
-          id: 1,
-          task: "task1",
-          completed: true,
-        },
-        {
-          id: 2,
-          task: "task2",
-          completed: false,
-        },
-        {
-          id: 3,
-          task: "task3",
-          completed: false,
-        },
-      ],
-      title: "ini adalah title kedua",
-    },
-    {
-      id: 1666779034529 + 11,
-      description:
-        "lorem ipsum doloit. Quisquam, quod. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.",
-      tags: ["tadg1v1qwe1", "tag1as921", "tag3asx2313"],
-      tasks: [
-        {
-          id: 1,
-          task: "task1",
-          completed: false,
-        },
-        {
-          id: 2,
-          task: "task2",
-          completed: false,
-        },
-        {
-          id: 3,
-          task: "task3",
-          completed: true,
-        },
-      ],
-      title: "ini adalah title ketiga",
-    },
-  ]);
+  const todos = ref([]);
 
   const search = ref("");
 
-  const addTodo = (todo) => {
+  const addTask = async (todo) => {
     todos.value.push(todo);
+    await setDoc(doc(db, "to-do", todo.id), todo)
+      .then(() => {
+        console.log("successfully delete!");
+      })
+      .catch((error) => {
+        console.error("Error delete document: ", error);
+      });
   };
 
-  const deleteTask = (id) => {
+  const deleteTask = async (id) => {
     todos.value = todos.value.filter((item) => {
       return item.id != id;
     });
+    await deleteDoc(doc(db, "to-do", id.toString()))
+      .then(() => {
+        console.log("Document successfully delete!");
+      })
+      .catch((error) => {
+        console.error("Error delete document: ", error);
+      });
   };
 
-  const editTask = (id, data) => {
+  const editTask = async (id, data) => {
     const index = todos.value.findIndex((item) => {
       return item.id == id;
     });
     todos.value[index] = data;
+    await setDoc(doc(db, "to-do", todos.value[index].id), data)
+      .then(() => {
+        console.log("Document successfully written!");
+      })
+      .catch((error) => {
+        console.error("Error writing document: ", error);
+      });
   };
 
   const filterList = () => {
@@ -107,6 +57,10 @@ export const useToDoStore = defineStore("todo", () => {
     }
   };
 
+  const setList = (list) => {
+    todos.value = list;
+  };
+
   watch(todos.value, (state) => {
     // persist the whole state to the local storage whenever it changes
     console.log("pinia triggered", state);
@@ -117,5 +71,5 @@ export const useToDoStore = defineStore("todo", () => {
     console.log("pinia triggered with no val", state);
   });
 
-  return { todos, search, addTodo, filterList, deleteTask, editTask };
+  return { todos, search, addTask, filterList, deleteTask, editTask, setList };
 });

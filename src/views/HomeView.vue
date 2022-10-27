@@ -31,13 +31,15 @@ export default {
         </h5>
         <h6 class="text-sm">
           {{
-            `${new Date(list.id).getDate()}/${new Date(
-              list.id
-            ).getMonth()}/${new Date(list.id).getFullYear()}`
+            `${new Date(parseInt(list.id)).getDate()}/${new Date(
+              parseInt(list.id)
+            ).getMonth()}/${new Date(parseInt(list.id)).getFullYear()}`
           }}
 
           {{
-            `${new Date(list.id).getHours()}:${new Date(list.id).getMinutes()}`
+            `${new Date(parseInt(list.id)).getHours()}:${new Date(
+              parseInt(list.id)
+            ).getMinutes()}`
           }}
         </h6>
         <p
