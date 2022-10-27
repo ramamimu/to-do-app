@@ -31,15 +31,27 @@ export default {
         </h5>
         <h6 class="text-sm">
           {{
-            `${new Date(parseInt(list.id)).getDate()}/${new Date(
-              parseInt(list.id)
-            ).getMonth()}/${new Date(parseInt(list.id)).getFullYear()}`
+            `${
+              new Date(parseInt(list.id)).getDate() < 10
+                ? "0" + new Date(parseInt(list.id)).getDate()
+                : new Date(parseInt(list.id)).getDate()
+            }/${
+              new Date(parseInt(list.id)).getMonth() < 10
+                ? "0" + new Date(parseInt(list.id)).getMonth()
+                : new Date(parseInt(list.id)).getMonth()
+            }/${new Date(parseInt(list.id)).getFullYear()}`
           }}
 
           {{
-            `${new Date(parseInt(list.id)).getHours()}:${new Date(
-              parseInt(list.id)
-            ).getMinutes()}`
+            `${
+              new Date(parseInt(list.id)).getHours() < 10
+                ? "0" + new Date(parseInt(list.id)).getHours()
+                : new Date(parseInt(list.id)).getHours()
+            }:${
+              new Date(parseInt(list.id)).getMinutes() < 10
+                ? "0" + new Date(parseInt(list.id)).getMinutes()
+                : new Date(parseInt(list.id)).getMinutes()
+            }`
           }}
         </h6>
         <p
@@ -47,7 +59,7 @@ export default {
         >
           {{ list.description }}
         </p>
-        <div class="my-2 flex flex-wrap gap-5">
+        <div class="my-2 flex gap-5 overflow-x-auto no-scrollbar">
           <p
             v-for="tag in list.tags"
             :key="tag"

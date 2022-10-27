@@ -82,12 +82,28 @@ export default {
     <h2 class="text-center text-4xl font-bold">{{ title }}</h2>
     <h6 class="mt-10 text-sm font-semibold text-gray-600">
       {{
-        `${new Date(id).getDate()}/${new Date(id).getMonth()}/${new Date(
-          id
-        ).getFullYear()}`
+        `${
+          new Date(parseInt(id)).getDate() < 10
+            ? "0" + new Date(parseInt(id)).getDate()
+            : new Date(parseInt(id)).getDate()
+        }/${
+          new Date(parseInt(id)).getMonth() < 10
+            ? "0" + new Date(parseInt(id)).getMonth()
+            : new Date(parseInt(id)).getMonth()
+        }/${new Date(parseInt(id)).getFullYear()}`
       }}
 
-      {{ `${new Date(id).getHours()}:${new Date(id).getMinutes()}` }}
+      {{
+        `${
+          new Date(parseInt(id)).getHours() < 10
+            ? "0" + new Date(parseInt(id)).getHours()
+            : new Date(parseInt(id)).getHours()
+        }:${
+          new Date(parseInt(id)).getMinutes() < 10
+            ? "0" + new Date(parseInt(id)).getMinutes()
+            : new Date(parseInt(id)).getMinutes()
+        }`
+      }}
     </h6>
     <div>
       <h2 class="text-xl font-semibold">Description:</h2>
