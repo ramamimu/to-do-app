@@ -2,11 +2,18 @@
 import { db } from "../src/firebase/app";
 import { collection, getDocs } from "firebase/firestore";
 import HeaderVue from "./components/Header.vue";
+import { useToDoStore } from "./stores/toDoList";
 
 export default {
   name: "App",
   components: {
     HeaderVue,
+  },
+  setup() {
+    const ToDoStore = useToDoStore();
+    return {
+      ToDoStore,
+    };
   },
   data() {
     return {

@@ -16,11 +16,9 @@ export default {
 
 <template>
   <div class="container mx-auto flex items-center justify-between border">
-    <a href="/">
-      <div class="mx-10 my-5 cursor-pointer">
-        <h2 class="text-4xl font-black">To Do App</h2>
-      </div>
-    </a>
+    <div class="mx-10 my-5 cursor-pointer" @click="$router.push('/')">
+      <h2 class="text-4xl font-black">To Do APP</h2>
+    </div>
     <div class="mx-10 flex gap-2">
       <div class="relative" bis_skin_checked="1">
         <div
@@ -44,13 +42,14 @@ export default {
         </div>
         <input
           class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-4 pl-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-          placeholder="Search"
+          placeholder="Search by Tag"
           v-model="ToDoStore.search"
         />
       </div>
       <button
         type="button"
         class="mr-2 inline-flex items-center rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        @click="$router.push('/add')"
       >
         <svg
           class="h-6 w-6"

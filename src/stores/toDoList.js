@@ -1,4 +1,4 @@
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { defineStore } from "pinia";
 
 export const useToDoStore = defineStore("todo", () => {
@@ -83,6 +83,19 @@ export const useToDoStore = defineStore("todo", () => {
     todos.value.push(todo);
   };
 
+  const deleteTask = (id) => {
+    todos.value = todos.value.filter((item) => {
+      return item.id != id;
+    });
+  };
+
+  const editTask = (id, data) => {
+    const index = todos.value.findIndex((item) => {
+      return item.id == id;
+    });
+    todos.value[index] = data;
+  };
+
   const filterList = () => {
     const searchTag = search.value;
     if (searchTag != "") {
@@ -94,5 +107,15 @@ export const useToDoStore = defineStore("todo", () => {
     }
   };
 
-  return { todos, search, addTodo, filterList };
+  watch(todos.value, (state) => {
+    // persist the whole state to the local storage whenever it changes
+    console.log("pinia triggered", state);
+  });
+
+  watch(todos, (state) => {
+    // persist the whole state to the local storage whenever it changes
+    console.log("pinia triggered with no val", state);
+  });
+
+  return { todos, search, addTodo, filterList, deleteTask, editTask };
 });

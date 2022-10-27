@@ -16,6 +16,12 @@ export default {
       title: "",
     };
   },
+  methods: {
+    referLink(id, prefix) {
+      const path = `/${prefix}/${id}`;
+      this.$router.push(path, id);
+    },
+  },
   mounted() {
     this.id = parseInt(this.$route.params.id);
     let task = this.ToDoStore.todos.find((todo) => todo.id == this.id);
@@ -31,7 +37,13 @@ export default {
 <template>
   <div class="container mx-auto my-10 w-[950px] border p-8">
     <div class="flex gap-3">
-      <div class="cursor-pointer opacity-50 hover:opacity-100">
+      <div
+        class="cursor-pointer opacity-50 hover:opacity-100"
+        @click="
+          ToDoStore.deleteTask(id);
+          $router.push('/');
+        "
+      >
         <svg
           class="h-6 w-6"
           fill="none"
@@ -47,7 +59,10 @@ export default {
           ></path>
         </svg>
       </div>
-      <div class="cursor-pointer opacity-50 hover:opacity-100">
+      <div
+        class="cursor-pointer opacity-50 hover:opacity-100"
+        @click="referLink(this.id, 'edit')"
+      >
         <svg
           class="h-6 w-6"
           fill="none"

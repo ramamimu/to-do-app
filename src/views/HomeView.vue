@@ -9,8 +9,8 @@ export default {
     };
   },
   methods: {
-    referLink(id) {
-      const path = `task/${id}`;
+    referLink(id, prefix) {
+      const path = `${prefix}/${id}`;
       this.$router.push(path, id);
     },
   },
@@ -23,7 +23,7 @@ export default {
       <div
         v-for="list in ToDoStore.filterList()"
         :key="list.id"
-        class="my-5 max-w-sm rounded-lg border border-gray-200 bg-white p-6 shadow-md"
+        class="my-5 w-96 max-w-sm rounded-lg border border-gray-200 bg-white p-6 shadow-md"
         bis_skin_checked="1"
       >
         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">
@@ -57,12 +57,15 @@ export default {
         <div class="flex items-center justify-between">
           <div
             class="inline-flex cursor-pointer items-center rounded-lg bg-blue-700 py-2 px-3 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300"
-            @click="referLink(list.id)"
+            @click="referLink(list.id, 'task')"
           >
             Read more
           </div>
           <div class="flex gap-5">
-            <div class="cursor-pointer opacity-50 hover:opacity-100">
+            <div
+              class="cursor-pointer opacity-50 hover:opacity-100"
+              @click="referLink(list.id, 'edit')"
+            >
               <svg
                 class="h-6 w-6"
                 fill="none"
@@ -78,7 +81,10 @@ export default {
                 ></path>
               </svg>
             </div>
-            <div class="cursor-pointer opacity-50 hover:opacity-100">
+            <div
+              class="cursor-pointer opacity-50 hover:opacity-100"
+              @click="ToDoStore.deleteTask(list.id)"
+            >
               <svg
                 class="h-6 w-6"
                 fill="none"
