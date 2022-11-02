@@ -70,12 +70,10 @@ export const useToDoStore = defineStore("todo", () => {
   };
 
   watch(todos.value, (state) => {
-    // persist the whole state to the local storage whenever it changes
     console.log("pinia triggered", state);
   });
 
   watch(todos, (state) => {
-    // persist the whole state to the local storage whenever it changes
     console.log("pinia triggered with no val", state);
   });
 

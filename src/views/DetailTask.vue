@@ -1,49 +1,7 @@
-<script>
-import { useToDoStore } from "../stores/toDoList";
-export default {
-  setup() {
-    const ToDoStore = useToDoStore();
-    return {
-      ToDoStore,
-    };
-  },
-  data() {
-    return {
-      id: null,
-      description: "",
-      tags: [],
-      tasks: [],
-      title: "",
-    };
-  },
-  methods: {
-    referLink(id, prefix) {
-      const path = `/${prefix}/${id}`;
-      this.$router.push(path, id);
-    },
-  },
-  mounted() {
-    this.id = parseInt(this.$route.params.id);
-    let task = this.ToDoStore.todos.find((todo) => todo.id == this.id);
-    this.description = task.description;
-    this.tags = task.tags;
-    this.tasks = task.tasks;
-    this.title = task.title;
-    console.log(this.tasks);
-  },
-};
-</script>
-
 <template>
   <div class="container mx-auto my-10 w-[950px] border p-8">
     <div class="flex gap-3">
-      <div
-        class="cursor-pointer opacity-50 hover:opacity-100"
-        @click="
-          ToDoStore.deleteTask(id);
-          $router.push('/');
-        "
-      >
+      <div class="cursor-pointer opacity-50 hover:opacity-100">
         <svg
           class="h-6 w-6"
           fill="none"
@@ -59,10 +17,7 @@ export default {
           ></path>
         </svg>
       </div>
-      <div
-        class="cursor-pointer opacity-50 hover:opacity-100"
-        @click="referLink(this.id, 'edit')"
-      >
+      <div class="cursor-pointer opacity-50 hover:opacity-100">
         <svg
           class="h-6 w-6"
           fill="none"
@@ -79,49 +34,22 @@ export default {
         </svg>
       </div>
     </div>
-    <h2 class="text-center text-4xl font-bold">{{ title }}</h2>
+    <h2 class="text-center text-4xl font-bold">(title)Lorem ipsum dolor</h2>
     <h6 class="mt-10 text-sm font-semibold text-gray-600">
-      {{
-        `${
-          new Date(parseInt(id)).getDate() < 10
-            ? "0" + new Date(parseInt(id)).getDate()
-            : new Date(parseInt(id)).getDate()
-        }/${
-          new Date(parseInt(id)).getMonth() < 10
-            ? "0" + new Date(parseInt(id)).getMonth()
-            : new Date(parseInt(id)).getMonth()
-        }/${new Date(parseInt(id)).getFullYear()}`
-      }}
-
-      {{
-        `${
-          new Date(parseInt(id)).getHours() < 10
-            ? "0" + new Date(parseInt(id)).getHours()
-            : new Date(parseInt(id)).getHours()
-        }:${
-          new Date(parseInt(id)).getMinutes() < 10
-            ? "0" + new Date(parseInt(id)).getMinutes()
-            : new Date(parseInt(id)).getMinutes()
-        }`
-      }}
+      (date)28/09/2022 07:46
     </h6>
     <div>
       <h2 class="text-xl font-semibold">Description:</h2>
       <p class="">
-        {{ description }}
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Commodi nihil
+        optio qui rem pariatur saepe incidunt at itaque maxime accusamus?
       </p>
     </div>
     <div class="mt-2 mb-8 flex flex-wrap gap-5">
-      <p
-        v-for="tag in tags"
-        :key="tag"
-        class="rounded-lg bg-gray-300 p-1 text-sm text-gray-700"
-      >
-        #{{ tag }}
-      </p>
+      <p class="rounded-lg bg-gray-300 p-1 text-sm text-gray-700">#tag</p>
     </div>
-    <div v-for="task in tasks" :key="task.id">
-      <div v-if="task.completed == true" class="flex">
+    <div>
+      <div class="flex">
         <svg
           class="mx-5 h-6 w-6"
           fill="none"
@@ -136,11 +64,9 @@ export default {
             d="M5 13l4 4L19 7"
           ></path>
         </svg>
-        <span class="text-lg font-semibold text-green-700">
-          {{ task.task }}
-        </span>
+        <span class="text-lg font-semibold text-green-700"> task finish</span>
       </div>
-      <div v-else class="flex">
+      <div class="flex">
         <svg
           class="mx-5 h-6 w-6"
           fill="currentColor"
@@ -154,7 +80,7 @@ export default {
           ></path>
         </svg>
         <span class="text-lg font-semibold text-red-700">
-          {{ task.task }}
+          task not finished
         </span>
       </div>
     </div>
